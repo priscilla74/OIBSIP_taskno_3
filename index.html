@@ -1,49 +1,57 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Your Web Page</title>
-</head>  
-<body>  
-    <main id="main">   
-        <h1 id="title">  
-           Mahendra Singh Dhoni - The Captain Cool
-        </h1>  
-        <div id="img">   
-            <img src="https://cdn.britannica.com/25/222725-050-170F622A/Indian-cricketer-Mahendra-Singh-Dhoni-2011.jpg" id="image"  
-                alt="Error in the image">  
-            <small id="caption">  
-              <p>Believe in the process, not the results - MSD </p> 
-            </small>  
-        </div>  
-        <div id="tribute-data">  
-            <h1 class="title-msd">  
-               Roars of the Lion... 
-            </h1>  
-<p>  ☛ Mahendra Singh Dhoni is an Indian professional cricketer, who plays as a wicket-keeper-batsman. Widely regarded as one of the world's greatest wicket-keeper-batsmen and captains in the history of the sport, he is known for his explosive batting, wicket-keeping and leadership skill.<br><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple To-Do Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>To-Do Planner</h1>
+    <div>
+      <input type="text" id="taskInput" placeholder="Enter your task" onkeypress="addTaskOnEnter(event)">
+      <button onclick="addTask()">Add Task</button>
+    </div>
+    <ul id="taskList"></ul>
+  </div>
+<script>
+    function addTask() {
+      var taskInput = document.getElementById('taskInput');
+      var taskList = document.getElementById('taskList');
 
-☛ MS Dhoni is the only Indian captain who has led India to all three major ICC events. From winning the maiden T20 World Cup in 2007 on his captaincy debut to lead India to a World Cup victory on home soil in 2011. In 2013 he has won the Champions Trophy.<br><br>
+      if (taskInput.value.trim() !== '') {
+        var li = document.createElement('li');
+        li.innerHTML = `
+          <input type="checkbox" onchange="toggleTaskStatus(this)">
+          <span>${taskInput.value}</span>
+          <button class="delete-button" onclick="deleteTask(this)">Delete</button>
+        `;
+        taskList.appendChild(li);
+        taskInput.value = '';
+      }
+    }
 
-☛ MS Dhoni is the only non-Australian captain who has led his team more than 100 matches.  He is also the third captain to have won the 100 matches after two Australian captains after Ricky Ponting and Allan Border.<br><br>
+    function deleteTask(button) {
+      var taskList = document.getElementById('taskList');
+      var li = button.parentNode;
+      taskList.removeChild(li);
+    }
 
-☛ Dhoni is the fourth fastest batsman who has completed  8000 runs in New Zealand fifth and final match.<br><br>
+    function toggleTaskStatus(checkbox) {
+      var taskText = checkbox.nextElementSibling;
+      if (checkbox.checked) {
+        taskText.style.textDecoration = 'line-through';
+      } else {
+        taskText.style.textDecoration = 'none';
+      }
+    }
 
-☛ In 2013 Champions Trophy Dhoni has won the Champions Trophy which made Dhoni have all three ICC trophies in his kitty. In the Champions Trophy India was the only team who were unbeaten. In the final, India defeated England by 5 runs.<br><br>
-
-☛ On November 1, 2011, the Indian Territorial Army conferred with honorary rank Lieutenant Colonel to Dhoni after which Dhoni has become the only captain after Kapil Dev to receive this prestigious award.<br><br>
-
-☛ 2008 and 2009 Dhoni was awarded the ICC Player of the Year trophy.<br><br>
-
-☛ In 2011, 2012 and 2013 under Dhoni captaincy, India was named as ICC team of the year.<br><br>
-
-☛ Dhoni has won the Rajiv Gandhi Khel Ratna award in 2007.<br><br>
-
-This tribute page is a small acknowledgment of his pioneering contributions to the field of cricket.<br><br>   
-            </p>  
-        </div>  
-        <br>  
-    </main>  
-</body>  
-</html>  
+    function addTaskOnEnter(event) {
+      if (event.key === 'Enter') {
+        addTask();
+      }
+    }
+  </script>
+</body>
+</html>
